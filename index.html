@@ -2,64 +2,75 @@
 <html>
 <head>
   <title>Real Life Moments</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Pour les téléphones -->
   <style>
     body {
       background: linear-gradient(to bottom, #1a1a1a, #3d0000); /* Fond dégradé sombre et sexy */
       color: #ff4d4d; /* Texte rouge passion */
       font-family: 'Arial', sans-serif;
       text-align: center;
-      padding: 40px;
+      padding: 20px; /* Moins de padding sur téléphone */
       margin: 0;
       overflow: hidden; /* Pas de scroll inutile */
     }
     h1 {
-      font-size: 48px;
+      font-size: clamp(32px, 10vw, 48px); /* S’adapte : 32px min, 48px max, 10% de la largeur */
       text-shadow: 2px 2px 8px #000; /* Ombre plus forte */
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       font-weight: bold;
     }
     #tease {
-      font-size: 28px;
+      font-size: clamp(18px, 5vw, 28px); /* S’adapte : 18px min, 28px max, 5% de la largeur */
       background: rgba(0, 0, 0, 0.8); /* Fond plus opaque */
-      padding: 20px;
+      padding: clamp(10px, 2vw, 20px); /* Padding adaptable */
       border-radius: 15px;
-      margin: 20px auto;
-      max-width: 700px;
+      margin: 15px auto;
+      max-width: clamp(300px, 80%, 700px); /* Largeur adaptable */
       box-shadow: 0 4px 15px rgba(255, 77, 77, 0.5); /* Ombre rouge */
     }
     #countdown {
-      font-size: 22px;
+      font-size: clamp(16px, 4vw, 22px); /* S’adapte : 16px min, 22px max, 4% de la largeur */
       color: #fff;
       text-shadow: 1px 1px 5px #ff4d4d; /* Ombre rouge plus visible */
-      margin: 15px 0;
+      margin: 10px 0;
       font-weight: bold;
     }
     #payButton {
       background: #ff4d4d;
       color: white;
-      padding: 20px 50px;
+      padding: clamp(15px, 3vw, 20px) clamp(30px, 6vw, 50px); /* Padding adaptable */
       border: none;
       border-radius: 15px;
-      font-size: 26px;
+      font-size: clamp(18px, 4vw, 26px); /* S’adapte : 18px min, 26px max, 4% de la largeur */
       cursor: pointer;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6); /* Ombre plus profonde */
       transition: all 0.3s; /* Animation douce */
       margin-top: 20px;
+      display: inline-block; /* Pour centrer sur mobile */
     }
     #payButton:hover {
       background: #cc0000;
       transform: scale(1.1); /* Grossit un peu plus au survol */
     }
     img {
-      max-width: 80%;
+      max-width: clamp(70%, 80%, 80%); /* S’adapte : 70% min, 80% max */
       border: 3px solid #ff4d4d;
       border-radius: 15px;
       margin-top: 20px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* Ombre pour l’image */
     }
     p {
-      font-size: 18px;
+      font-size: clamp(14px, 3vw, 18px); /* S’adapte : 14px min, 18px max, 3% de la largeur */
       margin: 10px 0;
+    }
+
+    /* Ajustements spécifiques pour mobile */
+    @media (max-width: 768px) { /* Écrans jusqu’à 768px (téléphones) */
+      body { padding: 10px; }
+      h1 { margin-bottom: 10px; }
+      #tease { max-width: 90%; padding: 10px; }
+      #payButton { padding: 15px 25px; margin-top: 15px; }
+      img { max-width: 90%; margin-top: 15px; }
     }
   </style>
 </head>
@@ -68,9 +79,7 @@
   <p id="tease"></p>
   <p id="countdown"></p>
   <button id="payButton" style="display:none;">Payer 1,99 €</button>
-  <script src="https://js.stripe.com/v3/"></script>
   <script>
-    const stripe = Stripe('pk_test_51QyGlzCiEsmcpafGEOkg8F6We7DiSbYgvLK1tIUcwwtrrtb4i97YrJ7JkONBUBWwmfYPlHUNU6T2vjGRHulOwuDU00DdJNkuwE'); // Mets ta clé complète ici !
     function hookUser() {
       let moments = [
         "une femme surprise à se déshabiller dans l’ombre de sa chambre",
@@ -97,12 +106,7 @@
     hookUser();
 
     document.getElementById("payButton").addEventListener("click", () => {
-      stripe.redirectToCheckout({
-        lineItems: [{ price: 'price_1QyHNyCiEsmcpafGba4lGNKq', quantity: 1 }],
-        mode: "payment",
-        successUrl: window.location.href + "?paid=true&moment=" + encodeURIComponent(document.getElementById("tease").innerText),
-        cancelUrl: window.location.href
-      });
+      window.location.href = "https://buy.stripe.com/aEU2bjgUUfdB3NScMM"; // Lien direct Stripe
     });
 
     if (window.location.search.includes("paid=true")) {
