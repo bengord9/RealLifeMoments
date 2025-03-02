@@ -1,62 +1,103 @@
-```html
- <!DOCTYPE html>
- <html>
- <head>
-   <title>Real Life Moments</title>
-   <style>
-     body { background: #1a1a1a; color: #ff4d4d; font-family: Arial; text-align: center; padding: 20px; }
-     #tease { font-size: 24px; margin: 20px 0; }
-     #countdown { font-size: 18px; color: #fff; }
-     #payButton { background: #ff4d4d; color: white; padding: 15px 30px; border: none; cursor: pointer; font-size: 20px; border-radius: 5px; }
-     #payButton:hover { background: #cc0000; }
-   </style>
- </head>
- <body>
-   <h1>Real Life Moments</h1>
-   <p id="tease"></p>
-   <p id="countdown"></p>
-   <button id="payButton" style="display:none;">Voir pour 1,99 €</button>
-   <script src="https://js.stripe.com/v3/"></script>
-   <script>
-     const stripe = Stripe('pk_test_51...'); // À configurer
-     function hookUser() {
-       let moments = [
-         "un inconnu filmé en train de se caresser près d’une fenêtre ouverte",
-         "une femme surprise à se déshabiller dans l’ombre de sa chambre",
-         "un couple capturé en plein baiser fiévreux dans une voiture",
-         "une silhouette saisie en train de gémir sous une douche brûlante",
-         "un homme pris sur le vif ajustant son pantalon dans un parc"
-       ];
-       let moment = moments[Math.floor(Math.random() * moments.length)];
-       let spotsLeft = Math.floor(Math.random() * 200) + 100; // 100-300 places
-       let timeLeft = Math.floor(Math.random() * 3600) + 1800; // 30-60 min fictives
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Real Life Moments</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #1a1a1a, #3d0000); /* Fond dégradé sombre et sexy */
+      color: #ff4d4d; /* Texte rouge passion */
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+      margin: 0;
+    }
+    h1 {
+      font-size: 48px;
+      text-shadow: 2px 2px 5px #000; /* Ombre pour le titre */
+      margin-bottom: 20px;
+    }
+    #tease {
+      font-size: 28px;
+      background: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
+      padding: 15px;
+      border-radius: 10px;
+      margin: 20px auto;
+      max-width: 600px;
+    }
+    #countdown {
+      font-size: 20px;
+      color: #fff;
+      text-shadow: 1px 1px 3px #ff4d4d; /* Ombre rouge */
+    }
+    #payButton {
+      background: #ff4d4d;
+      color: white;
+      padding: 20px 40px;
+      border: none;
+      border-radius: 10px;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Ombre pour le bouton */
+      transition: all 0.3s; /* Animation douce */
+    }
+    #payButton:hover {
+      background: #cc0000;
+      transform: scale(1.05); /* Grossit un peu au survol */
+    }
+    img {
+      max-width: 100%;
+      border: 2px solid #ff4d4d;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Real Life Moments</h1>
+  <p id="tease"></p>
+  <p id="countdown"></p>
+  <button id="payButton" style="display:none;">Payer 1,99 €</button>
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    const stripe = Stripe('pk_test_51QyGlzCiEsmcpafGEOkg8F6We7DiSbYgvLK1tIUcwwtrrtb4i97YrJ7JkONBUBWwmfYPlHUNU6T2vjGRHulOwuDU00DdJNkuwE'); // Mets ta clé complète ici !
+    function hookUser() {
+      let moments = [
+        "une femme surprise à se déshabiller dans l’ombre de sa chambre",
+        "un inconnu filmé en train de se caresser près d’une fenêtre ouverte",
+        "un couple capturé en plein baiser fiévreux dans une voiture",
+        "une silhouette saisie en train de gémir sous une douche brûlante",
+        "une femme surprise à se déshabiller dans l’ombre de sa chambre"
+      ];
+      let moment = moments[Math.floor(Math.random() * moments.length)];
+      let spotsLeft = Math.floor(Math.random() * 200) + 100; // 100-300 places
+      let timeLeft = Math.floor(Math.random() * 3600) + 1800; // 30-60 min
 
-       document.getElementById("tease").innerHTML = "Découvre <b>" + moment + "</b> pour 1,99 €.";
-       document.getElementById("countdown").innerHTML = "Seulement " + spotsLeft + " places restantes ! Expire dans " + Math.floor(timeLeft / 60) + " min " + (timeLeft % 60) + " sec.";
-       document.getElementById("payButton").style.display = "block";
+      document.getElementById("tease").innerHTML = "Découvre <b>" + moment + "</b> pour 1,99 €.";
+      document.getElementById("countdown").innerHTML = "Seulement " + spotsLeft + " places restantes ! Expire dans " + Math.floor(timeLeft / 60) + " min " + (timeLeft % 60) + " sec.";
+      document.getElementById("payButton").style.display = "block";
 
-       setInterval(() => {
-         timeLeft--;
-         if (timeLeft >= 0) {
-           document.getElementById("countdown").innerHTML = "Seulement " + spotsLeft + " places restantes ! Expire dans " + Math.floor(timeLeft / 60) + " min " + (timeLeft % 60) + " sec.";
-         }
-       }, 1000); // Faux compte à rebours
-     }
-     hookUser();
+      setInterval(() => {
+        timeLeft--;
+        if (timeLeft >= 0) {
+          document.getElementById("countdown").innerHTML = "Seulement " + spotsLeft + " places restantes ! Expire dans " + Math.floor(timeLeft / 60) + " min " + (timeLeft % 60) + " sec.";
+        }
+      }, 1000); // Faux compte à rebours
+    }
+    hookUser();
 
-     document.getElementById("payButton").addEventListener("click", () => {
-       stripe.redirectToCheckout({
-         lineItems: [{ price: 'prod_Rs1QnGIO175QMn', quantity: 1 }],
-         mode: "payment",
-         successUrl: window.location.href + "?paid=true&moment=" + encodeURIComponent(document.getElementById("tease").innerText),
-         cancelUrl: window.location.href
-       });
-     });
+    document.getElementById("payButton").addEventListener("click", () => {
+      stripe.redirectToCheckout({
+        lineItems: [{ price: 'price_1QyHNyCiEsmcpafGba4lGNKq', quantity: 1 }], // Mets ton price_... ici !
+        mode: "payment",
+        successUrl: window.location.href + "?paid=true&moment=" + encodeURIComponent(document.getElementById("tease").innerText),
+        cancelUrl: window.location.href
+      });
+    });
 
-     if (window.location.search.includes("paid=true")) {
-       let paidMoment = new URLSearchParams(window.location.search).get("moment");
-       document.body.innerHTML = "<h1>Ton Moment Réel</h1><img src='https://postimg.cc/py8mqw86' alt='Moment réel'><p>" + paidMoment + "</p><p>Partage ce lien : " + window.location.href.split("?")[0] + "</p>";
-     }
-   </script>
- </body>
- </html>
+    if (window.location.search.includes("paid=true")) {
+      let paidMoment = new URLSearchParams(window.location.search).get("moment");
+      document.body.innerHTML = "<h1>Ton Moment Réel</h1><img src='https://postimg.cc/7J4390HB' alt='Moment réel'><p>" + paidMoment + "</p><p>Partage ce lien : " + window.location.href.split('?')[0] + "</p>";
+    }
+  </script>
+</body>
+</html>
