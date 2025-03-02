@@ -9,7 +9,7 @@
       color: #ff4d4d; /* Texte rouge passion */
       font-family: 'Arial', sans-serif;
       text-align: center;
-      padding: 20px; /* Moins de padding sur téléphone */
+      padding: 20px;
       margin: 0;
       overflow: hidden; /* Pas de scroll inutile */
     }
@@ -64,13 +64,42 @@
       margin: 10px 0;
     }
 
-    /* Ajustements spécifiques pour mobile */
+    /* Pop-up pour proposer le lien */
+    #offerPopup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.9);
+      color: #ff4d4d;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+    }
+    #offerPopup button {
+      background: #ff4d4d;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    #offerPopup button:hover {
+      background: #cc0000;
+    }
+
     @media (max-width: 768px) { /* Écrans jusqu’à 768px (téléphones) */
       body { padding: 10px; }
       h1 { margin-bottom: 10px; }
       #tease { max-width: 90%; padding: 10px; }
       #payButton { padding: 15px 25px; margin-top: 15px; }
       img { max-width: 90%; margin-top: 15px; }
+      #offerPopup { padding: 15px; font-size: 16px; }
+      #offerPopup button { font-size: 16px; padding: 8px 15px; }
     }
   </style>
 </head>
@@ -79,6 +108,10 @@
   <p id="tease"></p>
   <p id="countdown"></p>
   <button id="payButton" style="display:none;">Payer 1,99 €</button>
+  <div id="offerPopup">
+    <p>Tu cherches plus de moments sexy ? Payer 1,99 € pour un instant brûlant !</p>
+    <button onclick="window.location.href='https://buy.stripe.com/aEU2bjgUUfdB3NScMM'">Cliquer ici</button>
+  </div>
   <script>
     function hookUser() {
       let moments = [
@@ -100,6 +133,9 @@
         timeLeft--;
         if (timeLeft >= 0) {
           document.getElementById("countdown").innerHTML = "Seulement " + spotsLeft + " places restantes ! Expire dans " + Math.floor(timeLeft / 60) + " min " + (timeLeft % 60) + " sec.";
+        } else {
+          document.getElementById("payButton").style.display = "none"; // Cache le bouton après le temps
+          document.getElementById("offerPopup").style.display = "block"; // Montre la pop-up
         }
       }, 1000); // Faux compte à rebours
     }
