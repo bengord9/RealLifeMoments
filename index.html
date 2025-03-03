@@ -2,10 +2,10 @@
 <html>
 <head>
   <title>Real Life Moments</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Pour les téléphones -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Pour les téléphones -->
   <style>
     body {
-      background: linear-gradient(to bottom, #1a1a1a, #3d0000); /* Fond dégradé sombre et sexy */
+      background: linear-gradient(to bottom, #1a1a1a, #3d0000); /* Fond dégradé sombre et sexy */
       color: #ff4d4d; /* Texte rouge passion */
       font-family: 'Arial', sans-serif;
       text-align: center;
@@ -92,7 +92,7 @@
       background: #cc0000;
     }
 
-    @media (max-width: 768px) { /* Écrans jusqu’à 768px (téléphones) */
+    @media (max-width: 768px) { /* Écrans jusqu’à 768px (téléphones) */
       body { padding: 10px; }
       h1 { margin-bottom: 10px; }
       #tease { max-width: 90%; padding: 10px; }
@@ -109,23 +109,23 @@
   <p id="countdown"></p>
   <button id="payButton" style="display:none;">Payer 1,99 €</button>
   <div id="offerPopup">
-    <p>Tu cherches plus de moments sexy ? Payer 1,99 € pour un instant brûlant !</p>
+    <p>Tu cherches plus de moments sexy ? Payer 1,99 € pour un instant brûlant !</p>
     <button onclick="window.location.href='https://buy.stripe.com/aEU2bjgUUfdB3NScMM'">Cliquer ici</button>
   </div>
   <script>
     function hookUser() {
       let moments = [
-        "une femme surprise à se déshabiller dans l’ombre de sa chambre",
-        "un inconnu filmé en train de se caresser près d’une fenêtre ouverte",
-        "un couple capturé en plein baiser fiévreux dans une voiture",
-        "une silhouette saisie en train de gémir sous une douche brûlante",
+        "une femme surprise à se déshabiller dans l’ombre de sa chambre",
+        "un inconnu filmé en train de se caresser près d’une fenêtre ouverte",
+        "un couple capturé en plein baiser fiévreux dans une voiture",
+        "une silhouette saisie en train de gémir sous une douche brûlante",
         "un homme pris sur le vif ajustant son pantalon dans un parc"
       ];
       let moment = moments[Math.floor(Math.random() * moments.length)];
       let spotsLeft = Math.floor(Math.random() * 200) + 100; // 100-300 places
       let timeLeft = Math.floor(Math.random() * 3600) + 1800; // 30-60 min
 
-      document.getElementById("tease").innerHTML = "Découvre <b>" + moment + "</b> pour 1,99 €.";
+      document.getElementById("tease").innerHTML = "Découvre <b>" + moment + "</b> pour 1,99 €.";
       document.getElementById("countdown").innerHTML = "Seulement " + spotsLeft + " places restantes ! Expire dans " + Math.floor(timeLeft / 60) + " min " + (timeLeft % 60) + " sec.";
       document.getElementById("payButton").style.display = "block";
 
@@ -134,10 +134,10 @@
         if (timeLeft >= 0) {
           document.getElementById("countdown").innerHTML = "Seulement " + spotsLeft + " places restantes ! Expire dans " + Math.floor(timeLeft / 60) + " min " + (timeLeft % 60) + " sec.";
         } else {
-          document.getElementById("payButton").style.display = "none"; // Cache le bouton après le temps
+          document.getElementById("payButton").style.display = "none"; // Cache le bouton après le temps
           document.getElementById("offerPopup").style.display = "block"; // Montre la pop-up
         }
-      }, 1000); // Faux compte à rebours
+      }, 1000); // Faux compte à rebours
     }
     hookUser();
 
@@ -147,7 +147,7 @@
 
     if (window.location.search.includes("paid=true")) {
       let paidMoment = new URLSearchParams(window.location.search).get("moment");
-      document.body.innerHTML = "<h1>Ton Moment Réel</h1><img src='https://i.postimg.cc/J0Dp159W/Whats-App-Video-2025-03-02-at-21-45-12-614a0eaf.gif' alt='Moment réel'><p>" + paidMoment + "</p><p>Partage ce lien : " + window.location.href.split('?')[0] + "</p>";
+      document.body.innerHTML = "<h1>Ton Moment Réel</h1><img src='https://i.postimg.cc/J0Dp159W/Whats-App-Video-2025-03-02-at-21-45-12-614a0eaf.gif' alt='Moment réel'><p>" + paidMoment + "</p><p>Partage ce lien : " + window.location.href.split('?')[0] + "</p>";
     }
   </script>
 </body>
